@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>VuePress</title>
-    <meta name="description" content="">
-    
-    
-    <link rel="preload" href="/assets/css/0.styles.a932b7f9.css" as="style"><link rel="preload" href="/assets/js/app.dbf517cc.js" as="script"><link rel="preload" href="/assets/js/3.e8d0c2e6.js" as="script"><link rel="prefetch" href="/assets/js/10.3bf30667.js"><link rel="prefetch" href="/assets/js/11.99124b77.js"><link rel="prefetch" href="/assets/js/12.17966d0d.js"><link rel="prefetch" href="/assets/js/13.910fc333.js"><link rel="prefetch" href="/assets/js/14.05138ba5.js"><link rel="prefetch" href="/assets/js/15.dae928df.js"><link rel="prefetch" href="/assets/js/2.f89b6ce7.js"><link rel="prefetch" href="/assets/js/4.7b6b06e8.js"><link rel="prefetch" href="/assets/js/5.1c0b5f96.js"><link rel="prefetch" href="/assets/js/6.9c954eb2.js"><link rel="prefetch" href="/assets/js/7.905288c6.js"><link rel="prefetch" href="/assets/js/8.0d11173f.js"><link rel="prefetch" href="/assets/js/9.49974597.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.a932b7f9.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-exact-active router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="home"><div class="hero"><img src="/assets/images/hero.jpg" alt="hero"> <h1>VuePress</h1> <p class="description">
-      Welcome to your VuePress site
-    </p> <p class="action"><a href="/introduction/conventions.html" class="nav-link action-button">Get Started →</a></p></div> <!----> <div class="content custom"></div> <div class="footer">
-    MIT Licensed | Copyright (c) 2018
-  </div></div> <!----></div></div>
-    <script src="/assets/js/app.dbf517cc.js" defer></script><script src="/assets/js/3.e8d0c2e6.js" defer></script>
-  </body>
+<html>
+<head>
+  <title>Upload your files</title>
+</head>
+<body>
+  <form enctype="multipart/form-data" action="upload.php" method="POST">
+    <p>Upload your file</p>
+    <input type="file" name="uploaded_file"></input><br />
+    <input type="submit" value="Upload"></input>
+  </form>
+</body>
 </html>
+<?PHP
+  if(!empty($_FILES['uploaded_file']))
+  {
+    $path = "uploads/";
+    $path = $path . basename( $_FILES['uploaded_file']['name']);
+
+    if(move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $path)) {
+      echo "The file ".  basename( $_FILES['uploaded_file']['name']). 
+      " has been uploaded";
+    } else{
+        echo "There was an error uploading the file, please try again!";
+    }
+  }
+?>
